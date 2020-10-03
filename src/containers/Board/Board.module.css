@@ -7,3 +7,12 @@ Button{
     width: 50px;
     text-align: center;
 }
+
+.congratulate{
+    font-size: xx-large;
+}
+
+.congratulate Button{
+    width: 200px;
+    font-size: 20px;
+}

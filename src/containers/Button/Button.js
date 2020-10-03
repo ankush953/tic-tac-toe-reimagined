@@ -1,3 +1,4 @@
+import classes from "./Button.module.css";
 import React, { Component } from "react";
 
 class Button extends Component {
@@ -7,9 +8,9 @@ class Button extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.Button}>
         <button
-          disabled={this.state.text !== ""}
+          disabled={this.props.disabled}
           onClick={this.props.clicked}
         >
           {this.state.text || this.props.value}
