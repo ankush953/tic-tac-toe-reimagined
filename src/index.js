@@ -3,23 +3,23 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
-import makeMoveReducer from "./store/reducers/makeMove";
+// import { Provider } from "react-redux";
+// import { combineReducers, createStore } from "redux";
+// import makeMoveReducer from "./store/reducers/makeMove";
 
-const rootReducer = combineReducers(makeMoveReducer);
+// const rootReducer = combineReducers(makeMoveReducer);
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+// const store = createStore(
+//   rootReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
 
 const app = (
-  <Provider store={store}>
+  // <Provider store={store}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </Provider>
+  // </Provider>
 );
 
 ReactDOM.render(app, document.getElementById("root"));

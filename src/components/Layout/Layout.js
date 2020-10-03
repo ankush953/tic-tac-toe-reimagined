@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Board from "../../containers/Board/Board";
 
 class Layout extends Component {
@@ -13,8 +12,4 @@ class Layout extends Component {
   }
 }
 
-const matchStateToProps = (state) => {};
-
-const matchDispatchToProps = (props) => {};
-
-export default connect(matchStateToProps, matchDispatchToProps)(Layout);
+export default Layout;
