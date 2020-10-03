@@ -1,4 +1,8 @@
-.Input input{
+.Input button{
     height: 50px;
     width: 50px;
+}
+
+button:hover{
+    color: rgb(209, 131, 58);
 }
