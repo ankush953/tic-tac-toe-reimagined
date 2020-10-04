@@ -7,11 +7,14 @@ class Button extends Component {
   };
 
   render() {
+    // let css = [classes.Button, classes[this.props.value]];
+    // // console.log(css);
     return (
       <div className={classes.Button}>
         <button
           disabled={this.props.disabled}
           onClick={this.props.clicked}
+          className={classes[this.props.value]}
         >
           {this.state.text || this.props.value}
         </button>

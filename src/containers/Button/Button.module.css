@@ -1,8 +1,16 @@
-button:disabled{
-    color: black;
-    background-color: red;
+button:disabled {
+  color: black;
 }
 
-button{
-    text-align: center;
+button {
+  text-align: center;
+  font-size: large;
+}
+
+.X {
+  background-color: red;
+}
+
+.O {
+  background-color: green;
 }

@@ -8,6 +8,7 @@ class Board extends Component {
     playerOne: "",
     playerTwo: "",
     player: ["", ""],
+    color: ["green", "red"],
     turn: 0,
     matrix: [
       ["", "", ""],
