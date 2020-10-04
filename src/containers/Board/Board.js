@@ -14,6 +14,7 @@ class Board extends Component {
       ["", "", ""],
       ["", "", ""],
     ],
+    remCells: 9,
   };
 
   assignSymbols = (playerOne) => {
@@ -28,6 +29,7 @@ class Board extends Component {
       playerOne: playerOne,
       playerTwo: playerTwo,
       player: [playerOne, playerTwo],
+      remCells: 9,
     });
   };
 
@@ -67,6 +69,7 @@ class Board extends Component {
     ) {
       return true;
     }
+    return !this.state.remCells ? "draw" : false;
   };
 
   makeMove = (key) => {
@@ -81,6 +84,7 @@ class Board extends Component {
         ...this.state,
         turn: 1 - prevState.turn,
         matrix: matrix,
+        remCells: prevState.remCells - 1,
       };
     });
   };
@@ -97,6 +101,7 @@ class Board extends Component {
         ["", "", ""],
         ["", "", ""],
       ],
+      remCells: 9,
     });
   };
 
@@ -139,13 +144,18 @@ class Board extends Component {
     }
     return (
       <div className={classes.Board}>
-        {result ? (
+        {result === true ? (
           <div className={classes.congratulate}>
             Congratulations!!! {this.state.player[1 - this.state.turn]} Won.
             <Button value="Reload the game" clicked={this.resetGame} />
           </div>
-        ) : (
+        ) : result === false ? (
           board
+        ) : (
+          <div className={classes.draw}>
+            Oops!!! Match draw.
+            <Button value="Reload the game" clicked={this.resetGame} />
+          </div>
         )}
       </div>
     );

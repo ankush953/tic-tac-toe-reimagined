@@ -2,3 +2,7 @@ button:disabled{
     color: black;
     background-color: red;
 }
+
+button{
+    text-align: center;
+}

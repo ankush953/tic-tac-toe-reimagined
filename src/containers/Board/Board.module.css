@@ -1,18 +1,29 @@
-.row{
-    display: inline-block;
+.row {
+  display: inline-block;
 }
 
-Button{
-    height: 50px;
-    width: 50px;
-    text-align: center;
+Button {
+  height: 50px;
+  width: 50px;
+  text-align: center;
 }
 
-.congratulate{
-    font-size: xx-large;
+.congratulate {
+  font-size: xx-large;
+  color: green;
 }
 
-.congratulate Button{
-    width: 200px;
-    font-size: 20px;
+.draw {
+  font-size: xx-large;
+  color: red;
+}
+
+.congratulate Button {
+  width: 200px;
+  font-size: 20px;
+}
+
+.draw Button {
+  width: 200px;
+  font-size: 20px;
 }
