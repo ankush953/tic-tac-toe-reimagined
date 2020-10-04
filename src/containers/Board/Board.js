@@ -1,6 +1,6 @@
 import classes from "./Board.module.css";
 import React, { Component } from "react";
-import Button from "../Button/Button";
+import Button from "../../components/Button/Button";
 
 class Board extends Component {
   state = {
