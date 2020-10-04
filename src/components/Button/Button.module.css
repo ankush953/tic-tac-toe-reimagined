@@ -1,0 +1,15 @@
+button:disabled {
+  color: black;
+}
+
+button {
+  font-size: large;
+}
+
+.X {
+  background-color: red;
+}
+
+.O {
+  background-color: green;
+}
