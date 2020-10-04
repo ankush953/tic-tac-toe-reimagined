@@ -30,14 +30,8 @@ class Board extends Component {
     });
   };
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    return true;
-    // return this.state.turn !== nextState.turn;
-  };
-
   verify = () => {
     let matrix = { ...this.state.matrix };
-    // console.log(matrix);
     if (
       (matrix[0][0] !== "" &&
         matrix[0][0] === matrix[0][1] &&
@@ -70,11 +64,9 @@ class Board extends Component {
   };
 
   makeMove = (key) => {
-    // console.log(key);
     let row = key[0];
     let col = key[1];
     let matrix = { ...this.state.matrix };
-    // console.log(row, col);
     matrix[row][col] = this.state.player[this.state.turn];
     this.setState((prevState) => {
       return {
@@ -105,10 +97,6 @@ class Board extends Component {
     for (let i = 0; i < 3; i++) {
       const curr = [];
       for (let j = 0; j < 3; j++) {
-        // console.log(i, j);
-        // console.log("" + i + j);
-        // let val = "" + i + j;
-        // console.log(val[0], val[1]);
         curr.push(
           <Button
             key={"" + i + j}
@@ -130,7 +118,7 @@ class Board extends Component {
     // console.log(board);
     if (!this.state.gameOn) {
       board = (
-        <div>
+        <div className={classes.choice}>
           Choose your weapon:
           <Button clicked={() => this.assignSymbols("O")} value="O" />
           <Button clicked={() => this.assignSymbols("X")} value="X" />
