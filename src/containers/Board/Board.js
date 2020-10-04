@@ -5,8 +5,6 @@ import Button from "../../components/Button/Button";
 class Board extends Component {
   state = {
     gameOn: false,
-    playerOne: "",
-    playerTwo: "",
     player: ["", ""],
     color: ["green", "red"],
     turn: 0,
@@ -27,8 +25,6 @@ class Board extends Component {
     }
     this.setState({
       gameOn: true,
-      playerOne: playerOne,
-      playerTwo: playerTwo,
       player: [playerOne, playerTwo],
       remCells: 9,
     });
@@ -93,8 +89,6 @@ class Board extends Component {
   resetGame = () => {
     this.setState({
       gameOn: false,
-      playerOne: "",
-      playerTwo: "",
       player: ["", ""],
       turn: 0,
       matrix: [
