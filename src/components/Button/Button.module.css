@@ -13,3 +13,8 @@ button {
 .O {
   background-color: green;
 }
+
+.vs-computer, .vs-human{
+  width: 200px;
+  height: auto;
+}

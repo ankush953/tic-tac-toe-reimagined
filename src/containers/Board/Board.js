@@ -14,6 +14,7 @@ class Board extends Component {
       ["", "", ""],
     ],
     remCells: 9,
+    noOfPlayer: 0,
   };
 
   assignSymbols = (playerOne) => {
@@ -92,6 +93,13 @@ class Board extends Component {
     });
   };
 
+  assignPlayer = (player) => {
+    this.setState({
+      ...this.state,
+      noOfPlayer: player,
+    });
+  };
+
   render() {
     let temp = [];
     for (let i = 0; i < 3; i++) {
@@ -116,12 +124,15 @@ class Board extends Component {
     ));
     const result = this.verify();
     // console.log(board);
-    if (!this.state.gameOn) {
+    if (/*!this.state.noOfPlayer || */!this.state.gameOn) {
       board = (
         <div className={classes.choice}>
           Choose your weapon:
           <Button clicked={() => this.assignSymbols("O")} value="O" />
           <Button clicked={() => this.assignSymbols("X")} value="X" />
+          {/* Choose game mode:
+          <Button clicked={() => this.assignPlayer(2)} value="vs human" />
+          <Button clicked={() => this.assignPlayer(1)} value="vs computer" /> */}
         </div>
       );
     }
