@@ -1,106 +1,29 @@
 import classes from "./Board.module.css";
 import React, { Component } from "react";
 import Button from "../../components/Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/makeMove";
 
 class Board extends Component {
-  state = {
-    gameOn: false,
-    player: ["", ""],
-    color: ["green", "red"],
-    turn: 0,
-    matrix: [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ],
-    remCells: 9,
-    noOfPlayer: 0,
-  };
 
   assignSymbols = (playerOne) => {
-    let playerTwo;
-    if (playerOne === "X") {
-      playerTwo = "O";
-    } else {
-      playerTwo = "X";
-    }
-    this.setState({
-      gameOn: true,
-      player: [playerOne, playerTwo],
-      remCells: 9,
-    });
+    this.props.assignSymbols(playerOne)
   };
 
   verify = () => {
-    let matrix = { ...this.state.matrix };
-    if (
-      (matrix[0][0] !== "" &&
-        matrix[0][0] === matrix[0][1] &&
-        matrix[0][1] === matrix[0][2]) ||
-      (matrix[1][0] !== "" &&
-        matrix[1][0] === matrix[1][1] &&
-        matrix[1][1] === matrix[1][2]) ||
-      (matrix[2][0] !== "" &&
-        matrix[2][0] === matrix[2][1] &&
-        matrix[2][1] === matrix[2][2]) ||
-      (matrix[0][0] !== "" &&
-        matrix[0][0] === matrix[1][0] &&
-        matrix[1][0] === matrix[2][0]) ||
-      (matrix[0][1] !== "" &&
-        matrix[0][1] === matrix[1][1] &&
-        matrix[1][1] === matrix[2][1]) ||
-      (matrix[0][2] !== "" &&
-        matrix[0][2] === matrix[1][2] &&
-        matrix[1][2] === matrix[2][2]) ||
-      (matrix[0][0] !== "" &&
-        matrix[0][0] === matrix[1][1] &&
-        matrix[1][1] === matrix[2][2]) ||
-      (matrix[0][2] !== "" &&
-        matrix[0][2] === matrix[1][1] &&
-        matrix[1][1] === matrix[2][0])
-    ) {
-      return true;
-    }
-    return !this.state.remCells ? "draw" : false;
+    this.props.verify()
   };
 
   makeMove = (key) => {
-    let row = key[0];
-    let col = key[1];
-    let matrix = { ...this.state.matrix };
-    matrix[row][col] = this.state.player[this.state.turn];
-    this.setState((prevState) => {
-      return {
-        ...this.state,
-        turn: 1 - prevState.turn,
-        matrix: matrix,
-        remCells: prevState.remCells - 1,
-      };
-    });
+    this.props.makeMove(key)
   };
 
   resetGame = () => {
-    this.setState({
-      gameOn: false,
-      player: ["", ""],
-      turn: 0,
-      matrix: [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
-      ],
-      remCells: 9,
-    });
-  };
-
-  assignPlayer = (player) => {
-    this.setState({
-      ...this.state,
-      noOfPlayer: player,
-    });
+    this.props.resetGame()
   };
 
   render() {
+    console.log(this.props);
     let temp = [];
     for (let i = 0; i < 3; i++) {
       const curr = [];
@@ -109,8 +32,8 @@ class Board extends Component {
           <Button
             key={"" + i + j}
             clicked={() => this.makeMove("" + i + j)}
-            value={this.state.matrix[i][j]}
-            disabled={this.state.matrix[i][j] !== ""}
+            value={this.props.matrix[i][j]}
+            disabled={this.props.matrix[i][j] !== ""}
           />
         );
       }
@@ -122,38 +45,56 @@ class Board extends Component {
         {row}
       </div>
     ));
-    const result = this.verify();
+    this.verify();
     // console.log(board);
-    if (/*!this.state.noOfPlayer || */!this.state.gameOn) {
+    if (!this.props.gameOn) {
       board = (
         <div className={classes.choice}>
           Choose your weapon:
           <Button clicked={() => this.assignSymbols("O")} value="O" />
           <Button clicked={() => this.assignSymbols("X")} value="X" />
-          {/* Choose game mode:
-          <Button clicked={() => this.assignPlayer(2)} value="vs human" />
-          <Button clicked={() => this.assignPlayer(1)} value="vs computer" /> */}
         </div>
       );
     }
     return (
       <div className={classes.Board}>
-        {result === true ? (
+        {this.props.result === true ? (
           <div className={classes.congratulate}>
-            Congratulations!!! {this.state.player[1 - this.state.turn]} Won.
+            Congratulations!!! {this.props.player[1 - this.props.turn]} Won.
             <Button value="Reload the game" clicked={this.resetGame} />
           </div>
-        ) : result === false ? (
+        ) : this.props.result === false ? (
           board
         ) : (
-          <div className={classes.draw}>
-            Oops!!! Match draw.
-            <Button value="Reload the game" clicked={this.resetGame} />
-          </div>
-        )}
+              <div className={classes.draw}>
+                Oops!!! Match draw.
+                <Button value="Reload the game" clicked={this.resetGame} />
+              </div>
+            )}
       </div>
     );
   }
 }
 
-export default Board;
+const matchStateToProps = (state) => {
+  return {
+    gameOn: state.board.gameOn,
+    player: state.board.player,
+    color: state.board.color,
+    turn: state.board.turn,
+    matrix: state.board.matrix,
+    remCells: state.board.remCells,
+    result: state.board.result
+  }
+}
+
+const matchDispatchToProps = dispatch => {
+  return {
+    assignSymbols: (symbol) => dispatch(actions.assignSymbols(symbol)),
+    makeMove: (key) => dispatch(actions.makeMove(key)),
+    verify: () => dispatch(actions.verify()),
+    resetGame: () => dispatch(actions.resetGame())
+  }
+}
+
+export default connect(matchStateToProps, matchDispatchToProps)(Board);
